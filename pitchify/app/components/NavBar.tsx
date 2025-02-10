@@ -24,7 +24,7 @@ const NavBar = async () => {
               "use server"
               await signOut({redirectTo:"/"})
               }} 
-              className="cursor-pointer text-black">
+              className="cursor-pointer text-black ">
               <button
               type="submit"
               >Logout</button>
