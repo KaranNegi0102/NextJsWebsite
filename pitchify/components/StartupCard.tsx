@@ -2,6 +2,8 @@ import React from 'react'
 import { formatDate } from '@/lib/utils'
 import { EyeIcon} from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
+import {Button }from './ui/button'
 const StartupCard = ({post}:{post:StartupTypeCard}) => {
 
   const {_createdAt,views,author:{_id:authorId,name},_id,title,category,description} = post
@@ -28,8 +30,30 @@ const StartupCard = ({post}:{post:StartupTypeCard}) => {
           </Link>
         </div>
       <Link href={`/user/${authorId}`}>
-        <Image src="" alt="image"/>
+        <Image src="https://placehold.co/600x400" alt="placeholder" width={48} height={48} className='rounded-full'/>
       </Link>
+      </div>
+
+      <Link href={`/startup/${_id}`}>
+        <p className='startup-card_description mt-5 line-clamp-3'>
+          {description}
+        </p>
+        <Image src="https://images.unsplash.com/photo-1589254065909-b7086229d08c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cm9ib3R8ZW58MHx8MHx8fDA%3D" 
+         width={40} 
+         height={40} 
+         alt="placeholder" 
+         className='startup-card_img'/>
+      </Link>
+
+      <div className='flex-between gap-3 mt-5'>
+        <Link href={`/?query=${category.toLowerCase()}`}>
+          <p className='text-16-medium'>{category}</p>
+        </Link>
+        <Button className="startup-card_btn" asChild>
+          <Link href={`/startup/${_id}`}>
+           Details
+          </Link>
+        </Button>
       </div>
     </li>
   )
