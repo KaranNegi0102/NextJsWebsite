@@ -6,7 +6,7 @@ import Image from 'next/image'
 import {Button }from './ui/button'
 const StartupCard = ({post}:{post:StartupTypeCard}) => {
 
-  const {_createdAt,views,author:{_id:authorId,name},_id,title,category,description} = post
+  const {_createdAt,views,author:{_id:authorId,name},_id,title,category,description,image} = post
 
   return (
     <li className='startup-card group'>
@@ -38,7 +38,7 @@ const StartupCard = ({post}:{post:StartupTypeCard}) => {
         <p className='startup-card_description mt-5 line-clamp-3'>
           {description}
         </p>
-        <Image src="https://images.unsplash.com/photo-1589254065909-b7086229d08c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cm9ib3R8ZW58MHx8MHx8fDA%3D" 
+        <Image src={image} 
          width={40} 
          height={40} 
          alt="placeholder" 

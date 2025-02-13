@@ -1,20 +1,29 @@
+import { json } from "node:stream/consumers"
 import SearchForm from "../components/SearchForm"
 import StartupCard from "../components/StartupCard"
+import { client } from "../sanity/lib/client"
+import { STARTUPS_QUERY } from "../sanity/lib/queries"
+
 export default async function Home({ searchParams }: {
   searchParams: Promise<{ query?: string }>
 }) {
   const query = (await searchParams).query;
-  const posts =[
-    {_createdAt:new Date(),
-      views:55,
-      _id:"1",
-      author:{_id:1 , name:"karan" },
-      image:"https://img.freepik.com/free-psd/futuristic-female-robot-glimpse-into-advanced-robotics_632498-25585.jpg?ga=GA1.1.536189515.1738913663&semt=ais_hybrid",
-      title:"We Robots",
-      category:"Robots",
-      description:"We are making robots that can do anything"
-    }
-  ]
+
+  const posts = await client.fetch(STARTUPS_QUERY); //used to fetch the post
+
+  console.log(JSON.stringify(posts, null, 2));
+
+  // const posts =[
+  //   {_createdAt:new Date(),
+  //     views:55,
+  //     _id:"1",
+  //     author:{_id:1 , name:"karan" },
+  //     image:"https://img.freepik.com/free-psd/futuristic-female-robot-glimpse-into-advanced-robotics_632498-25585.jpg?ga=GA1.1.536189515.1738913663&semt=ais_hybrid",
+  //     title:"We Robots",
+  //     category:"Robots",
+  //     description:"We are making robots that can do anything"
+  //   }
+  // ]
 
 
   return (
