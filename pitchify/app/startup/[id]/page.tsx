@@ -1,11 +1,12 @@
 import React from 'react'
 
-const page = () => {
+const Page = async ({params}:{params:Promise <{id:string}>}) => {
+  const id = (await params).id
   return (
-    <div>
-      page
-    </div>
+    <>
+      <h1>this is startup number {id}</h1>
+    </>
   )
 }
 
-export default page
+export default Page
