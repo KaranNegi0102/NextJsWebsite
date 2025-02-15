@@ -33,3 +33,6 @@ defineQuery(`*[_type == "startup" && _id==$id][0]{
   image,
   pitch
 }`)
+
+
+
