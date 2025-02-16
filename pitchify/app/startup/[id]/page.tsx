@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { client } from '@/sanity/lib/client';
 import { STARTUP_BY_ID_QUERY } from '@/sanity/lib/queries';
 import { formatDate } from '@/lib/utils';
 import Link from 'next/link';
 import Image from 'next/image';
+import markdownit from 'markdown-it';
+import { Skeleton } from '@/components/ui/skeleton';
+
+const md = markdownit();  
+
 export const experimental_ppr = true;
-  
+
 const Page = async ({params}:{params:Promise <{id:string}>}) => {
   const id = (await params).id
   // console.log(id);
@@ -18,6 +23,7 @@ const Page = async ({params}:{params:Promise <{id:string}>}) => {
       </>
     )
   }
+  const parsedContent = md.render(post?.pitch || '');
 
   return (
     <>
@@ -46,8 +52,28 @@ const Page = async ({params}:{params:Promise <{id:string}>}) => {
               className='rounded-full drop-shadow-lg'
               />
             </Link>
+            <div>
+              <p className='text-20-medium'>{post.author.name}</p>
+              <p className='text-16-medium !text-black-300'>@{post.author.username}</p>
+
+            </div>
+            <p className='category-tag'>{post.category}</p>
           </div>
+          <h3 className='text-20-medium'>Pitch Details</h3>
+          {parsedContent ? (
+            <article 
+            className='prose max-w-4xl font-work-sans break-all'
+            dangerouslySetInnerHTML={{__html:parsedContent}}
+            />
+          ):(
+            <p className='text-16-medium !text-black-300'>No pitch yet</p>
+          )}
         </div>
+        <hr className='divider'/>
+        {/* TODO: editor selected startup */}
+        <Suspense fallback={<Skeleton className='view_skeleton'/>}>
+          
+        </Suspense>
     </section>
       
     </>
